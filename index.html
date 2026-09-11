@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FreeGuard VPN</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#050816;
+    color:white;
+    min-height:100vh;
+}
+
+/* HEADER */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(5,8,22,.94);
+    backdrop-filter:blur(15px);
+    border-bottom:2px solid #00eaff;
+    padding:14px 28px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:25px;
+    font-weight:bold;
+    color:#00eaff;
+    text-shadow:0 0 15px #00eaff;
+}
+
+.logo-icon{
+    width:45px;
+    height:45px;
+    display:grid;
+    place-items:center;
+    border-radius:13px;
+    background:linear-gradient(135deg,#00eaff,#00ff9d);
+    color:#001018;
+    font-size:24px;
+    box-shadow:0 0 25px #00eaff;
+}
+
+nav button,
+.btn{
+    border:none;
+    padding:12px 20px;
+    border-radius:10px;
+    background:#00eaff;
+    color:#001018;
+    font-weight:bold;
+    cursor:pointer;
+    margin:5px;
+    transition:.25s;
+}
+
+nav button:hover,
+.btn:hover{
+    transform:translateY(-3px) scale(1.03);
+    box-shadow:0 0 22px #00eaff;
+}
+
+.green-btn{
+    background:#00ff9d;
+}
+
+.green-btn:hover{
+    box-shadow:0 0 25px #00ff9d;
+}
+
+/* PAGES */
+
+.page{
+    display:none;
+    min-height:85vh;
+    padding:45px 20px;
+}
+
+.page.active{
+    display:block;
+}
+
+/* HERO */
+
+.hero{
+    max-width:1200px;
+    margin:auto;
+    text-align:center;
+    padding:45px 20px 60px;
+}
+
+.hero h1{
+    font-size:clamp(38px,7vw,68px);
+    color:#00eaff;
+    margin:25px 0 20px;
+    text-shadow:
+        0 0 10px #00eaff,
+        0 0 35px #007bff;
+}
+
+.hero p{
+    font-size:20px;
+    color:#cbd5e1;
+    max-width:820px;
+    margin:auto;
+    line-height:1.7;
+}
+
+/* HERO VIDEO */
+
+.hero-video{
+    width:min(900px,95%);
+    height:430px;
+    margin:15px auto 25px;
+    position:relative;
+    overflow:hidden;
+    border-radius:28px;
+    border:3px solid #00eaff;
+
+    background:#02050c;
+
+    box-shadow:
+        0 0 25px #00eaff,
+        0 0 70px rgba(0,234,255,.25),
+        inset 0 0 40px #001f35;
+}
+
+.hero-video video{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:cover;
+}
+
+.hero-video::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.05),
+            rgba(0,0,0,.35)
+        );
+}
+
+.video-label{
+    position:absolute;
+    z-index:2;
+    left:22px;
+    bottom:20px;
+
+    padding:10px 16px;
+    border-radius:10px;
+
+    background:rgba(0,0,0,.65);
+    border:1px solid #00ff9d;
+
+    color:#00ff9d;
+    font-weight:bold;
+
+    box-shadow:0 0 15px rgba(0,255,157,.3);
+}
+
+/* TITLES */
+
+.section-title{
+    text-align:center;
+    margin:50px 0 25px;
+    font-size:32px;
+    color:#00ff9d;
+    text-shadow:0 0 15px rgba(0,255,157,.35);
+}
+
+/* CARDS */
+
+.cards{
+    max-width:1100px;
+    margin:auto;
+
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(230px,1fr));
+
+    gap:20px;
+}
+
+.card{
+    background:
+        linear-gradient(145deg,#0b1228,#07101f);
+
+    border:1px solid #164e63;
+    border-radius:18px;
+    padding:28px;
+    text-align:center;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-7px);
+    border-color:#00eaff;
+
+    box-shadow:
+        0 0 20px #003b4d,
+        0 10px 30px rgba(0,0,0,.3);
+}
+
+.card-icon{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+.card h3{
+    color:#00eaff;
+    margin-bottom:12px;
+}
+
+.card p{
+    color:#b8c4d6;
+    line-height:1.6;
+}
+
+/* GALLERY */
+
+.gallery{
+    max-width:1150px;
+    margin:auto;
+
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(280px,1fr));
+
+    gap:22px;
+}
+
+.gallery-item{
+    height:240px;
+    overflow:hidden;
+    border-radius:18px;
+    border:2px solid #123;
+    background:#0b1228;
+    position:relative;
+}
+
+.gallery img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    cursor:pointer;
+    display:block;
+    transition:.5s;
+}
+
+.gallery img:hover{
+    transform:scale(1.08);
+}
+
+/* DOWNLOAD PAGE */
+
+#download{
+    background:
+        radial-gradient(
+            circle at top,
+            #102040,
+            #050816 65%
+        );
+}
+
+.download-title{
+    text-align:center;
+    font-size:55px;
+    color:#00ff9d;
+    text-shadow:
+        0 0 10px #00ff9d,
+        0 0 30px #00eaff;
+    margin:35px 0 10px;
+}
+
+.download-subtitle{
+    text-align:center;
+    color:#00eaff;
+    font-size:19px;
+    letter-spacing:3px;
+}
+
+/* PLATFORM */
+
+.platform{
+    max-width:1150px;
+    margin:45px auto;
+
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(230px,1fr));
+
+    gap:22px;
+}
+
+.platform-card{
+    position:relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            #0d1730,
+            #07101f
+        );
+
+    padding:28px 22px;
+    text-align:center;
+
+    border-radius:22px;
+    border:1px solid #1e3a5f;
+
+    transition:.3s;
+    overflow:hidden;
+}
+
+.platform-card::before{
+    content:"";
+    position:absolute;
+    width:160px;
+    height:160px;
+    background:#00eaff;
+    filter:blur(90px);
+    opacity:.12;
+    top:-80px;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+.platform-card:hover{
+    transform:translateY(-8px);
+    border-color:#00eaff;
+    box-shadow:0 0 30px rgba(0,234,255,.2);
+}
+
+.platform-image{
+    width:125px;
+    height:125px;
+
+    object-fit:contain;
+
+    margin:0 auto 18px;
+
+    display:block;
+
+    filter:
+        drop-shadow(0 0 12px rgba(0,234,255,.35));
+
+    transition:.3s;
+}
+
+.platform-card:hover .platform-image{
+    transform:scale(1.08) translateY(-4px);
+}
+
+.platform-card h2{
+    margin-bottom:10px;
+    color:white;
+}
+
+.platform-card p{
+    color:#8294aa;
+    line-height:1.5;
+    min-height:45px;
+}
+
+/* DOWNLOAD BOX */
+
+.download-box{
+    max-width:750px;
+    margin:50px auto;
+    padding:45px 25px;
+
+    background:rgba(8,15,35,.95);
+
+    border:2px solid #00eaff;
+    border-radius:25px;
+
+    text-align:center;
+
+    box-shadow:
+        0 0 20px #003b4d,
+        inset 0 0 30px #061528;
+}
+
+.download-logo{
+    width:150px;
+    height:150px;
+    object-fit:contain;
+    margin:5px auto 25px;
+
+    filter:
+        drop-shadow(0 0 20px #00eaff);
+}
+
+.download-box h2{
+    font-size:32px;
+    margin-bottom:15px;
+}
+
+.download-box p{
+    color:#aebbd0;
+    margin-bottom:25px;
+    line-height:1.6;
+}
+
+.download{
+    background:#00ff9d;
+    color:#00150d;
+    font-size:18px;
+    padding:16px 30px;
+
+    display:inline-block;
+
+    border:none;
+    border-radius:12px;
+
+    font-weight:bold;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.download:hover{
+    transform:translateY(-3px);
+    box-shadow:0 0 30px #00ff9d;
+}
+
+.status{
+    margin-top:25px;
+    color:#00ff9d;
+}
+
+/* ABOUT */
+
+.about{
+    max-width:950px;
+    margin:40px auto;
+
+    background:#0b1228;
+    padding:30px;
+
+    border-radius:20px;
+    border:1px solid #164e63;
+
+    line-height:1.8;
+    color:#cbd5e1;
+}
+
+.about h2{
+    color:#00eaff;
+    margin-bottom:15px;
+}
+
+/* VPN */
+
+#vpn{
+    background:
+        radial-gradient(
+            circle at top,
+            #102040,
+            #050816 60%
+        );
+
+    text-align:center;
+}
+
+.gamer-title{
+    font-size:clamp(38px,7vw,65px);
+
+    color:#00ff9d;
+
+    text-shadow:
+        0 0 10px #00ff9d,
+        0 0 30px #00eaff;
+
+    margin-top:35px;
+}
+
+.gamer-subtitle{
+    color:#00eaff;
+    font-size:20px;
+    margin:15px;
+    letter-spacing:3px;
+}
+
+.vpn-control{
+    max-width:950px;
+    margin:35px auto;
+    padding:35px;
+
+    background:rgba(8,15,35,.95);
+
+    border:1px solid #1d4760;
+    border-radius:25px;
+}
+
+.connection-circle{
+    width:150px;
+    height:150px;
+
+    margin:20px auto;
+
+    border-radius:50%;
+
+    display:grid;
+    place-items:center;
+
+    font-size:65px;
+
+    border:3px solid #34465a;
+
+    transition:.4s;
+}
+
+.connection-circle.connected{
+    border-color:#00ff9d;
+
+    box-shadow:
+        0 0 30px #00ff9d,
+        0 0 70px rgba(0,255,157,.25);
+}
+
+#vpnStatus{
+    font-size:25px;
+}
+
+#vpnMessage{
+    color:#9eafc4;
+    margin:15px;
+}
+
+.server-grid{
+    max-width:750px;
+    margin:30px auto;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(190px,1fr));
+
+    gap:15px;
+}
+
+.server{
+    padding:20px;
+
+    background:#0b1628;
+
+    border:1px solid #1b3851;
+    border-radius:14px;
+
+    cursor:pointer;
+    text-align:left;
+
+    transition:.25s;
+}
+
+.server:hover,
+.server.selected{
+    border-color:#00ff9d;
+
+    box-shadow:
+        0 0 15px rgba(0,255,157,.15);
+}
+
+.server b{
+    color:#fff;
+}
+
+.server small{
+    color:#8294aa;
+    display:block;
+    margin-top:8px;
+}
+
+/* LIGHTBOX */
+
+#lightbox{
+    display:none;
+
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.92);
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:999;
+    padding:20px;
+}
+
+#lightbox img{
+    max-width:95%;
+    max-height:90%;
+
+    border-radius:15px;
+
+    border:2px solid #00eaff;
+
+    box-shadow:0 0 30px #00eaff;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    padding:30px;
+
+    background:#030611;
+
+    color:#718096;
+
+    border-top:1px solid #123;
+
+    line-height:1.7;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    header{
+        justify-content:center;
+        padding:12px;
+    }
+
+    nav{
+        text-align:center;
+    }
+
+    nav button{
+        padding:10px 13px;
+        font-size:12px;
+    }
+
+    .hero h1{
+        font-size:36px;
+    }
+
+    .hero-video{
+        height:310px;
+    }
+
+    .download-title{
+        font-size:36px;
+    }
+
+    .gamer-title{
+        font-size:36px;
+    }
+
+    .platform-image{
+        width:105px;
+        height:105px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            ⚡
+        </div>
+
+        FreeGuard VPN
+
+    </div>
+
+    <nav>
+
+        <button onclick="showPage('home')">
+            🏠 Bosh sahifa
+        </button>
+
+        <button onclick="showPage('download')">
+            📥 Yuklab olish
+        </button>
+
+        <button onclick="showPage('vpn')">
+            🎮 VPN
+        </button>
+
+    </nav>
+
+</header>
+
+
+<!-- =====================================================
+     1-OYNA
+===================================================== -->
+
+<section id="home" class="page active">
+
+    <div class="hero">
+
+        <!-- ISHLAYDIGAN GAMING VIDEO -->
+
+        <div class="hero-video">
+
+            <video
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="auto"
+                poster="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1400&q=85">
+
+                <source
+                    src="gaming-vpn.mp4"
+                    type="video/mp4">
+
+                Brauzeringiz video formatini qo‘llab-quvvatlamaydi.
+
+            </video>
+
+            <div class="video-label">
+                ⚡ FREEGUARD GAMING NETWORK
+            </div>
+
+        </div>
+
+
+        <h1>
+            ⚡ FREEGUARD VPN ⚡
+        </h1>
+
+        <p>
+            Gaming va kundalik internet foydalanish uchun
+            zamonaviy VPN loyihasi. Serverlar va VPN
+            boshqaruvini bitta qulay interfeys orqali boshqaring.
+        </p>
+
+        <br>
+
+        <button
+            class="btn green-btn"
+            onclick="showPage('download')">
+
+            ⚡ VPN YUKLAB OLISH
+
+        </button>
+
+        <button
+            class="btn"
+            onclick="showPage('vpn')">
+
+            🎮 VPN PANEL
+
+        </button>
+
+    </div>
+
+
+    <h2 class="section-title">
+        🚀 FreeGuard VPN imkoniyatlari
+    </h2>
+
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="card-icon">🔒</div>
+
+            <h3>
+                Himoyalangan ulanish
+            </h3>
+
+            <p>
+                VPN qurilma va VPN server o‘rtasidagi
+                ulanishni himoyalashga yordam beradi.
+            </p>
+        </div>
+
+
+        <div class="card">
+            <div class="card-icon">🌐</div>
+
+            <h3>
+                Server tanlash
+            </h3>
+
+            <p>
+                Turli hududlardagi serverlarni tanlash
+                va ulanish holatini ko‘rish mumkin.
+            </p>
+        </div>
+
+
+        <div class="card">
+            <div class="card-icon">🎮</div>
+
+            <h3>
+                Gamer interfeys
+            </h3>
+
+            <p>
+                Neon effektlar va gaming uslubidagi
+                boshqaruv paneli.
+            </p>
+        </div>
+
+
+        <div class="card">
+            <div class="card-icon">⚡</div>
+
+            <h3>
+                Low Latency
+            </h3>
+
+            <p>
+                Server masofasi va tarmoq marshruti
+                pingga ta’sir qilishi mumkin.
+            </p>
+        </div>
+
+    </div>
+
+
+    <h2 class="section-title">
+        📡 VPN qanday ishlaydi?
+    </h2>
+
+
+    <div class="cards">
+
+        <div class="card">
+
+            <div class="card-icon">1️⃣</div>
+
+            <h3>
+                Qurilma
+            </h3>
+
+            <p>
+                Kompyuter yoki telefon internetga ulanadi.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon">2️⃣</div>
+
+            <h3>
+                VPN tunnel
+            </h3>
+
+            <p>
+                Trafik VPN klient va server orqali
+                yo‘naltiriladi.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon">3️⃣</div>
+
+            <h3>
+                Internet
+            </h3>
+
+            <p>
+                VPN server orqali internet xizmatlariga
+                ulanish amalga oshiriladi.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- YANGI RASMLAR -->
+
+    <h2 class="section-title">
+        🖼️ VPN & Gaming
+    </h2>
+
+
+    <div class="gallery">
+
+        <div class="gallery-item">
+
+            <img
+                src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?auto=format&fit=crop&w=1200&q=85"
+                alt="Gaming PC"
+                onclick="openImage(this.src)">
+
+        </div>
+
+
+        <div class="gallery-item">
+
+            <img
+                src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=85"
+                alt="Gaming setup"
+                onclick="openImage(this.src)">
+
+        </div>
+
+
+        <div class="gallery-item">
+
+            <img
+                src="https://images.unsplash.com/photo-1603481546238-487240415921?auto=format&fit=crop&w=1200&q=85"
+                alt="Gaming controller"
+                onclick="openImage(this.src)">
+
+        </div>
+
+    </div>
+
+
+    <h2 class="section-title">
+        🧠 VPN haqida
+    </h2>
+
+
+    <div class="about">
+
+        <p>
+            VPN — Virtual Private Network degan ma’noni anglatadi.
+            VPN internet trafigini VPN server orqali yo‘naltirishga
+            imkon beradi.
+        </p>
+
+        <br>
+
+        <p>
+            VPN ishlatilganda server joylashuvi, internet marshruti
+            va tarmoq sifati ulanish tezligi hamda pingga ta’sir
+            qilishi mumkin.
+        </p>
+
+        <br>
+
+        <p>
+            FreeGuard VPN sayti VPN klientini boshqarish va yuklab
+            olish uchun gaming uslubidagi interfeys sifatida
+            yaratilgan.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     2-OYNA
+===================================================== -->
+
+<section id="download" class="page">
+
+    <div class="download-title">
+        ⚡ FREEGUARD VPN
+    </div>
+
+    <div class="download-subtitle">
+        GAMER DOWNLOAD CENTER
+    </div>
+
+
+    <div class="platform">
+
+
+        <!-- WINDOWS -->
+
+        <div class="platform-card">
+
+            <img
+                class="platform-image"
+                src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/windows11.svg"
+                alt="Windows">
+
+            <h2>
+                Windows
+            </h2>
+
+            <p>
+                Windows uchun FreeGuard VPN klienti.
+            </p>
+
+            <button
+                class="btn green-btn"
+                onclick="showPage('vpn')">
+
+                ⚡ Tanlash
+
+            </button>
+
+        </div>
+
+
+        <!-- ANDROID -->
+
+        <div class="platform-card">
+
+            <img
+                class="platform-image"
+                src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/android.svg"
+                alt="Android">
+
+            <h2>
+                Android
+            </h2>
+
+            <p>
+                Android telefon va planshetlar uchun.
+            </p>
+
+            <button
+                class="btn"
+                onclick="showPage('vpn')">
+
+                📱 Tanlash
+
+            </button>
+
+        </div>
+
+
+        <!-- APPLE -->
+
+        <div class="platform-card">
+
+            <img
+                class="platform-image"
+                src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/apple.svg"
+                alt="Apple">
+
+            <h2>
+                Apple
+            </h2>
+
+            <p>
+                iPhone va iPad uchun FreeGuard VPN.
+            </p>
+
+            <button
+                class="btn"
+                onclick="showPage('vpn')">
+
+                🍎 Tanlash
+
+            </button>
+
+        </div>
+
+
+        <!-- LINUX -->
+
+        <div class="platform-card">
+
+            <img
+                class="platform-image"
+                src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linux.svg"
+                alt="Linux">
+
+            <h2>
+                Linux
+            </h2>
+
+            <p>
+                Linux foydalanuvchilari uchun bo‘lim.
+            </p>
+
+            <button
+                class="btn"
+                onclick="showPage('vpn')">
+
+                🐧 Tanlash
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="download-box">
+
+        <img
+            class="download-logo"
+            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/torbrowser.svg"
+            alt="VPN">
+
+        <h2>
+            🎮 FreeGuard VPN
+        </h2>
+
+        <p>
+            VPN yuklab olishni davom ettirish uchun
+            VPN boshqaruv paneliga o‘ting.
+        </p>
+
+        <button
+            class="download"
+            onclick="showPage('vpn')">
+
+            ⚡ VPN YUKLASH
+
+        </button>
+
+        <div class="status">
+            ● SERVER READY
+        </div>
+
+    </div>
+
+
+    <h2 class="section-title">
+        📚 Yuklab olish haqida
+    </h2>
+
+
+    <div class="about">
+
+        <p>
+            Kerakli platformani tanlang va
+            <b>GAMER VPN CONTROL CENTER</b>
+            paneliga o'ting.
+        </p>
+
+        <br>
+
+        <p>
+            U yerdan serverni tanlash va VPN yuklab olish
+            sahifasini ochish mumkin.
+        </p>
+
+    </div>
+
+
+    <div style="text-align:center;margin:30px;">
+
+        <button
+            class="btn"
+            onclick="showPage('home')">
+
+            ← Bosh sahifa
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     3-OYNA
+===================================================== -->
+
+<section id="vpn" class="page">
+
+    <div class="gamer-title">
+        ⚡ FREEGUARD VPN ⚡
+    </div>
+
+    <div class="gamer-subtitle">
+        GAMER VPN CONTROL CENTER
+    </div>
+
+
+    <div class="vpn-control">
+
+        <div
+            id="connectionCircle"
+            class="connection-circle">
+
+            🛡️
+
+        </div>
+
+
+        <h2 id="vpnStatus">
+            DISCONNECTED
+        </h2>
+
+
+        <p id="vpnMessage">
+            Server tanlang va VPN yuklab olishni davom ettiring.
+        </p>
+
+
+        <button
+            id="connectButton"
+            class="btn green-btn"
+            onclick="openVPNDownload()">
+
+            ⚡ VPN YUKLAB OLISH
+
+        </button>
+
+
+        <h2
+            style="
+                color:#00eaff;
+                margin-top:35px;
+            ">
+
+            🌐 SERVER TANLASH
+
+        </h2>
+
+
+        <div class="server-grid">
+
+            <div
+                class="server selected"
+                onclick="selectServer(this,'🇩🇪 Germany')">
+
+                <b>🇩🇪 Germany</b>
+
+                <small>
+                    Recommended • 32 ms
+                </small>
+
+            </div>
+
+
+            <div
+                class="server"
+                onclick="selectServer(this,'🇳🇱 Netherlands')">
+
+                <b>🇳🇱 Netherlands</b>
+
+                <small>
+                    Fast • 38 ms
+                </small>
+
+            </div>
+
+
+            <div
+                class="server"
+                onclick="selectServer(this,'🇺🇸 USA')">
+
+                <b>🇺🇸 USA</b>
+
+                <small>
+                    Gaming • 91 ms
+                </small>
+
+            </div>
+
+
+            <div
+                class="server"
+                onclick="selectServer(this,'🇬🇧 United Kingdom')">
+
+                <b>🇬🇧 United Kingdom</b>
+
+                <small>
+                    Stable • 48 ms
+                </small>
+
+            </div>
+
+
+            <div
+                class="server"
+                onclick="selectServer(this,'🇸🇬 Singapore')">
+
+                <b>🇸🇬 Singapore</b>
+
+                <small>
+                    Asia • 75 ms
+                </small>
+
+            </div>
+
+
+            <div
+                class="server"
+                onclick="selectServer(this,'🇯🇵 Japan')">
+
+                <b>🇯🇵 Japan</b>
+
+                <small>
+                    Asia • 82 ms
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="about">
+
+        <h2 style="color:#00ff9d;margin-bottom:15px;">
+            🎮 Gaming VPN
+        </h2>
+
+        <p>
+            Server tanlash ping va marshrutga ta’sir qilishi
+            mumkin. Eng yaxshi serverni real tarmoq sharoitida
+            sinab ko‘rish tavsiya qilinadi.
+        </p>
+
+        <br>
+
+        <p>
+            <b>MUHIM:</b> “VPN YUKLAB OLISH” tugmasi
+            FreeGuard VPN yuklab olish sahifasini ochadi.
+        </p>
+
+    </div>
+
+
+    <button
+        class="btn"
+        onclick="showPage('download')">
+
+        ← Yuklab olish
+
+    </button>
+
+</section>
+
+
+<!-- LIGHTBOX -->
+
+<div
+    id="lightbox"
+    onclick="closeImage()">
+
+    <img
+        id="lightboxImage"
+        alt="Katta rasm">
+
+</div>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    ⚡ <b>FreeGuard VPN</b> © 2026
+
+    <br>
+
+    Gaming VPN Interface • Secure Connection Concept
+
+</footer>
+
+
+<script>
+
+function showPage(pageId){
+
+    const pages =
+        document.querySelectorAll('.page');
+
+    pages.forEach(function(page){
+        page.classList.remove('active');
+    });
+
+    const selectedPage =
+        document.getElementById(pageId);
+
+    if(selectedPage){
+        selectedPage.classList.add('active');
+    }
+
+    window.scrollTo({
+        top:0,
+        behavior:'smooth'
+    });
+
+}
+
+
+/* VPN DOWNLOAD */
+
+function openVPNDownload(){
+
+    window.location.href =
+        'https://freeguardvpn.com/ru/downloads/';
+
+}
+
+
+/* SERVER */
+
+let selectedServer =
+    '🇩🇪 Germany';
+
+
+function selectServer(element,server){
+
+    document
+        .querySelectorAll('.server')
+        .forEach(function(item){
+
+            item.classList.remove('selected');
+
+        });
+
+    element.classList.add('selected');
+
+    selectedServer =
+        server;
+
+    document.getElementById(
+        'vpnMessage'
+    ).textContent =
+        server +
+        ' server tanlandi.';
+
+}
+
+
+/* IMAGE LIGHTBOX */
+
+function openImage(src){
+
+    document
+        .getElementById('lightboxImage')
+        .src = src;
+
+    document
+        .getElementById('lightbox')
+        .style.display =
+        'flex';
+
+}
+
+
+function closeImage(){
+
+    document
+        .getElementById('lightbox')
+        .style.display =
+        'none';
+
+}
+
+
+document.addEventListener(
+    'keydown',
+    function(event){
+
+        if(event.key === 'Escape'){
+            closeImage();
+        }
+
+    }
+);
+
+
+/* VIDEO FALLBACK */
+
+const video =
+    document.querySelector('.hero-video video');
+
+video.addEventListener(
+    'error',
+    function(){
+
+        this.style.display = 'none';
+
+        const box =
+            document.querySelector('.hero-video');
+
+        box.style.background =
+            'url("https://images.unsplash.com/photo-1593305841991-05c297ba4575?auto=format&fit=crop&w=1400&q=85") center/cover';
+
+    }
+);
+
+</script>
+
+</body>
+</html>
